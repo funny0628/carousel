@@ -29,8 +29,8 @@ function slowanimationMove(ele, target) {
         var currentLeft = ele.offsetLeft;
         //2.计算每次移动距离,由(目标距离 - 当前位置) / 10 因为使用的除法后面会有小数,所以要向上取整
         var step = (target - currentLeft) / 10;
-        //取整
-        step = Math.ceil(step)
+        //取整 ,如果是从左->右 向下取整 ,如果是从右->左是向上取整
+         step = step > 0 ? Math.ceil(step) : Math.floor(step)
         //3.开始移动
         currentLeft += step
         ele.style.left = currentLeft + 'px';
