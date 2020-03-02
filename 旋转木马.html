@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            width: 1000px;
+            height: 390px;
+            margin: 100px auto;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+
+        span {
+            display: block;
+            width: 50px;
+            height: 50px;
+            font-size: 50px;
+            text-align: center;
+            line-height: 50px;
+            position: absolute;
+            top: 50%;
+            z-index: 6;
+            border: 1px solid #ccc;
+            background-color: yellowgreen;
+            display: none;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            right: 0;
+        }
+
+        ul {
+            list-style: none;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            position: relative;
+
+        }
+
+        ul li {
+            position: absolute;
+
+        }
+
+        ul li img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .one {
+            width: 400px;
+            height: 250px;
+            z-index: 2;
+            opacity: .4;
+            top: 40px;
+            left: 50px;
+
+        }
+
+        .two {
+            width: 500px;
+            height: 300px;
+            z-index: 3;
+            opacity: .7;
+            top: 80px;
+            left: 0px;
+
+        }
+
+        .three {
+            width: 590px;
+            height: 350px;
+            z-index: 4;
+            opacity: 1;
+            top: 120px;
+            left: 205px;
+
+        }
+
+        .four {
+            width: 500px;
+            height: 300px;
+            z-index: 3;
+            opacity: .7;
+            top: 80px;
+            left: 500px;
+
+        }
+
+        .five {
+            width: 400px;
+            height: 250px;
+            z-index: 2;
+            opacity: .4;
+            top: 40px;
+            left: 550px;
+
+
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <ul>
+            <li class="one"> <img
+                    src="https://img11.360buyimg.com/babel/s590x470_jfs/t1/85181/13/13474/83838/5e58bb88E92e4deab/e9294fb119255a30.jpg.webp"
+                    alt=""> </li>
+            <li class="two"> <img
+                    src="https://img30.360buyimg.com/pop/s590x470_jfs/t1/90578/4/12018/73130/5e427008Ee605a7e0/159197f6f5297a69.jpg.webp"
+                    alt=""> </li>
+            <li class="three"> <img
+                    src="https://img10.360buyimg.com/pop/s590x470_jfs/t1/96308/28/12891/48428/5e537625E94316bc1/ad42446b3ffc3f46.jpg.webp"
+                    alt=""></li>
+            <li class="four"> <img
+                    src="https://img14.360buyimg.com/pop/s590x470_jfs/t1/105829/31/13585/292940/5e5a3485E2247e84d/99b013f1bdc57cf6.jpg.webp"
+                    alt=""></li>
+            <li class="five"> <img
+                    src="https://img20.360buyimg.com/pop/s590x470_jfs/t1/108709/16/7177/77727/5e5734ffEf1911428/6d6b6df6e18b4f24.jpg.webp"
+                    alt=""></li>
+        </ul>
+        <span class="left">
+            < </span> <span class="right"> >
+        </span>
+    </div>
+</body>
+
+</html>
+<script src="./animate.js"></script>
+<script>
+    var option = [
+        {
+            width: 400,
+            height: 250,
+            zIndex: 2,
+            opacity: .4,
+            top: 40,
+            left: 50,
+
+        },
+        {
+            width: 500,
+            height: 300,
+            zIndex: 3,
+            opacity: .7,
+            top: 80,
+            left: 0,
+
+        },
+        {
+            width: 590,
+            height: 350,
+            zIndex: 4,
+            opacity: 1,
+            top: 120,
+            left: 205,
+
+        },
+        {
+            width: 500,
+            height: 300,
+            zIndex: 3,
+            opacity: .7,
+            top: 80,
+            left: 500,
+
+        },
+        {
+            width: 400,
+            height: 250,
+            zIndex: 2,
+            opacity: .4,
+            top: 40,
+            left: 550,
+
+        }
+    ];
+    var liList = document.getElementsByTagName('li');
+    var span = document.getElementsByTagName('span');
+    var box = document.getElementsByClassName('box')[0];
+    var left = document.getElementsByClassName('left')[0];
+    var right = document.getElementsByClassName('right')[0];
+    var timer = null;
+    box.onmouseover = function () {
+        for (var i = 0; i < span.length; i++) {
+            span[i].style.display = 'block'
+        }
+        clearInterval(timer)
+    }
+    box.onmouseout = function () {
+        for (var i = 0; i < span.length; i++) {
+            span[i].style.display = 'none'
+        }
+        timer = setInterval(() => {
+            next();
+        }, 1000);
+
+    }
+    left.onclick = function () {
+        //把第一个属性替换到最后一个的位置
+        option.push(option.shift());
+        for (var i = 0; i < liList.length; i++) {
+            animationslow(liList[i], option[i])
+        }
+
+    }
+    right.onclick = function () {
+        next();
+    }
+    //将下一页的封装起来,便于使用自动轮播
+    function next() {
+        //把最后一个属性替换到第一个的位置
+        option.unshift(option.pop());
+        for (var i = 0; i < liList.length; i++) {
+            animationslow(liList[i], option[i])
+        }
+    }
+
+    //添加自动轮播
+    timer = setInterval(() => {
+        next();
+    }, 1000);
+
+</script>

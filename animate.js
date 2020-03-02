@@ -51,7 +51,7 @@ function animationslow(ele, attrs, fn) {
         ele.timer = setInterval(() => {
             var isall = true
             for (var key in attrs) {
-                console.log(key, attrs[key]);
+                // console.log(key, attrs[key]);
                 var attribute = key;
                 var target = attrs[key];
                 //1.排除层级
@@ -93,5 +93,5 @@ function animationslow(ele, attrs, fn) {
                     fn()
                 }
             }
-        }, 50);
+        }, 20);
     }
